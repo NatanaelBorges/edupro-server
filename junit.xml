@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="6" failures="0" errors="0" time="3.915">
+  <testsuite name="StudentsController" errors="0" failures="0" skipped="0" timestamp="2023-05-30T02:20:35" time="3.826" tests="6">
+    <testcase classname="StudentsController should be defined" name="StudentsController should be defined" time="0.017">
+    </testcase>
+    <testcase classname="StudentsController create should create a new student" name="StudentsController create should create a new student" time="0.005">
+    </testcase>
+    <testcase classname="StudentsController findAll should find all students" name="StudentsController findAll should find all students" time="0.003">
+    </testcase>
+    <testcase classname="StudentsController findOne should find a student by id" name="StudentsController findOne should find a student by id" time="0.003">
+    </testcase>
+    <testcase classname="StudentsController update should update a student" name="StudentsController update should update a student" time="0.004">
+    </testcase>
+    <testcase classname="StudentsController remove should remove a student" name="StudentsController remove should remove a student" time="0.002">
+    </testcase>
+  </testsuite>
+</testsuites>
