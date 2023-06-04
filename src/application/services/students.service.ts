@@ -1,45 +1,45 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { CreateStudentViewModel } from '@application/view-models/students/create-student.view-model';
 import { UpdateStudentViewModel } from '@application/view-models/students/update-student.view-model';
-import { Student } from '@infrastructure/data/mappings/students.map';
+import { StudentsIoCTokens } from '@infrastructure/ioc/students/students.IoC.Tokens';
+import { IStudentsRepository } from '@domain/students/interfaces/IStudents.repository';
+import { StudentMappingProfile } from '@application/autoMapper/students.mapping.profile';
 
 @Injectable()
 export class StudentsService {
   private readonly logger = new Logger(StudentsService.name);
   constructor(
-    @InjectRepository(Student) private studentRepository: Repository<Student>,
+    @Inject(StudentsIoCTokens.IStudentsRepository)
+    private readonly _studentsRepository: IStudentsRepository,
   ) {}
 
-  create(createStudentViewModel: CreateStudentViewModel) {
-    this.logger.log(`create the students`);
-    const newStudent = this.studentRepository.create(createStudentViewModel);
-
-    return this.studentRepository.save(newStudent);
+  async create(createStudentViewModel: CreateStudentViewModel) {
+    return StudentMappingProfile.toEntityViewModel(
+      await this._studentsRepository.create(createStudentViewModel),
+    );
   }
 
-  findAll() {
-    this.logger.log(`Find the students`);
-    return this.studentRepository.find();
+  async findAll() {
+    return StudentMappingProfile.toEntityViewModels(
+      await this._studentsRepository.findAll(),
+    );
   }
 
-  findOne(id: string) {
-    return this.studentRepository.findOneBy({ id });
+  async findOne(id: string) {
+    return StudentMappingProfile.toEntityViewModel(
+      await this._studentsRepository.findOne(id),
+    );
   }
 
   async update(id: string, updateStudentViewModel: UpdateStudentViewModel) {
-    const student = await this.studentRepository.findOneBy({ id });
-
-    return this.studentRepository.save({
-      ...student,
-      ...updateStudentViewModel,
-    });
+    return StudentMappingProfile.toEntityViewModel(
+      await this._studentsRepository.update(id, updateStudentViewModel),
+    );
   }
 
   async remove(id: string) {
-    const student = await this.studentRepository.findOneBy({ id });
-
-    return this.studentRepository.remove(student);
+    return StudentMappingProfile.toEntityViewModel(
+      await this._studentsRepository.remove(id),
+    );
   }
 }
