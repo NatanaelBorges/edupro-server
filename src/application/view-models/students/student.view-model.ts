@@ -17,5 +17,5 @@ export class StudentsViewModel {
   active: boolean;
 
   @Expose()
-  createAt: Date;
+  createdAt: Date;
 }

@@ -36,8 +36,8 @@ describe('StudentsController', () => {
       const createdStudent = {
         id: '1',
         active: true,
-        createAt: new Date(),
-        updateAt: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
         deleted: false,
         ...createStudentViewModel,
       };
@@ -60,8 +60,8 @@ describe('StudentsController', () => {
         {
           id: '1',
           active: true,
-          createAt: new Date(),
-          updateAt: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deleted: false,
           firstName: 'John',
           lastName: 'Smith',
@@ -70,8 +70,8 @@ describe('StudentsController', () => {
         {
           id: '2',
           active: true,
-          createAt: new Date(),
-          updateAt: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
           deleted: false,
           firstName: 'Jane',
           lastName: 'Doe',
@@ -97,8 +97,8 @@ describe('StudentsController', () => {
       const student = {
         id: studentId,
         active: true,
-        createAt: new Date(),
-        updateAt: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
         deleted: false,
         firstName: 'John',
         lastName: 'Smith',
@@ -130,8 +130,8 @@ describe('StudentsController', () => {
       const updatedStudent = {
         id: studentId,
         active: true,
-        createAt: new Date(),
-        updateAt: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
         deleted: false,
         ...updateStudentViewModel,
       };
@@ -159,8 +159,8 @@ describe('StudentsController', () => {
       const student = {
         id: studentId,
         active: true,
-        createAt: new Date(),
-        updateAt: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
         deleted: false,
         firstName: 'John',
         lastName: 'Smith',
@@ -178,23 +178,3 @@ describe('StudentsController', () => {
     });
   });
 });
-
-// async function setupControllerAndService() {
-//   const studentsServiceMock = {
-//     create: jest.fn(),
-//     findAll: jest.fn(),
-//     findOne: jest.fn(),
-//     update: jest.fn(),
-//     remove: jest.fn(),
-//   };
-
-//   const module: TestingModule = await Test.createTestingModule({
-//     controllers: [StudentsController],
-//     providers: [{ provide: StudentsService, useValue: studentsServiceMock }],
-//   }).compile();
-
-//   const controller = module.get<StudentsController>(StudentsController);
-//   const service = module.get<StudentsService>(StudentsService);
-
-//   return { controller, service };
-// }

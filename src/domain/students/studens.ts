@@ -14,8 +14,8 @@ export class Students extends Entity<string> implements IEntity {
     lastName: string,
     email: string,
     active: boolean,
-    createAt: Date,
-    updateAt?: Date,
+    createdAt: Date,
+    updatedAt?: Date,
     deleted?: boolean,
   ) {
     super();
@@ -24,8 +24,8 @@ export class Students extends Entity<string> implements IEntity {
     this.lastName = lastName;
     this.email = email;
     this.active = active;
-    this.createAt = createAt;
-    this.updateAt = updateAt;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
     this.deleted = deleted;
   }
 

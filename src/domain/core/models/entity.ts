@@ -11,9 +11,9 @@ export class Entity<TIdentifier extends string | number> {
 
   protected active: boolean;
 
-  protected createAt: Date;
+  protected createdAt: Date;
 
-  protected updateAt: Date;
+  protected updatedAt: Date;
 
   protected deleted: boolean;
 
