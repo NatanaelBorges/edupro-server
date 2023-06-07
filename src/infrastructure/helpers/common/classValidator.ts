@@ -34,4 +34,18 @@ export class ClassValidator {
 
     return details;
   }
+
+  public static isStringValidLength(
+    str: string,
+    minLength: number,
+    maxLength?: number,
+  ): boolean {
+    if (maxLength) return str.length >= minLength && str.length <= maxLength;
+    else return str.length >= minLength;
+  }
+
+  public static isEmailValid(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 }
