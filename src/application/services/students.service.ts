@@ -4,6 +4,7 @@ import { UpdateStudentViewModel } from '@application/view-models/students/update
 import { StudentsIoCTokens } from '@infrastructure/ioc/students/students.IoC.Tokens';
 import { IStudentsRepository } from '@domain/students/interfaces/IStudents.repository';
 import { StudentMappingProfile } from '@application/autoMapper/students.mapping.profile';
+import { StudentFilter } from '@application/view-models/students/student.view-model';
 
 @Injectable()
 export class StudentsService {
@@ -19,7 +20,7 @@ export class StudentsService {
     );
   }
 
-  async findAll() {
+  async findAll(filter: StudentFilter) {
     return StudentMappingProfile.toEntityViewModels(
       await this._studentsRepository.findAll(),
     );
