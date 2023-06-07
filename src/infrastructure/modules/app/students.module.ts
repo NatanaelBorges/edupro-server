@@ -11,6 +11,10 @@ const providers: Provider[] = [
     provide: StudentsIoCTokens.IStudentsRepository,
     useClass: StudentsRepository,
   },
+  {
+    provide: StudentsIoCTokens.IStudentsService,
+    useClass: StudentsService,
+  },
 ];
 
 @Module({

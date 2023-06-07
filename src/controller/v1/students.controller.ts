@@ -10,9 +10,9 @@ import {
   HttpException,
   Query,
   UsePipes,
+  Inject,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { StudentsService } from '@application/services/students.service';
 import { CreateStudentViewModel } from '@application/view-models/students/create-student.view-model';
 import { UpdateStudentViewModel } from '@application/view-models/students/update-student.view-model';
 import {
@@ -25,12 +25,17 @@ import {
   StudentsViewModel,
 } from '@application/view-models/students/student.view-model';
 import { CustomValidationPipe } from '@infrastructure/pipes/validation.pipe';
+import { IStudentsService } from '@application/interfaces/IStudents.service';
+import { StudentsIoCTokens } from '@infrastructure/ioc/students/students.IoC.Tokens';
 
 @ApiTags('Student')
 @Controller('students')
 @UsePipes(new CustomValidationPipe())
 export class StudentsController {
-  constructor(private readonly studentsService: StudentsService) {}
+  constructor(
+    @Inject(StudentsIoCTokens.IStudentsService)
+    private readonly _studentsService: IStudentsService,
+  ) {}
 
   @Post()
   @ApiOperation({ summary: 'Create student' })
@@ -53,7 +58,7 @@ export class StudentsController {
   async create(
     @Body() createStudentViewModel: CreateStudentViewModel,
   ): Promise<ApiResponsePayload<StudentsViewModel>> {
-    const createdStudent = await this.studentsService.create(
+    const createdStudent = await this._studentsService.create(
       createStudentViewModel,
     );
 
@@ -80,7 +85,7 @@ export class StudentsController {
   async findAll(
     @Query() filter: StudentFilter,
   ): Promise<ApiResponsePayload<StudentsViewModel[]>> {
-    const students = await this.studentsService.findAll(filter);
+    const students = await this._studentsService.findAll(filter);
 
     if (students.length == 0) {
       throw new HttpException(
@@ -121,7 +126,7 @@ export class StudentsController {
   async findOne(
     @Param('id') id: string,
   ): Promise<ApiResponsePayload<StudentsViewModel>> {
-    const student = await this.studentsService.findOne(id);
+    const student = await this._studentsService.findOne(id);
 
     if (!student) {
       throw new HttpException(
@@ -163,7 +168,7 @@ export class StudentsController {
     @Param('id') id: string,
     @Body() updateStudentViewModel: UpdateStudentViewModel,
   ): Promise<ApiResponsePayload<StudentsViewModel>> {
-    const updatedStudent = await this.studentsService.update(
+    const updatedStudent = await this._studentsService.update(
       id,
       updateStudentViewModel,
     );
@@ -209,7 +214,7 @@ export class StudentsController {
   async remove(
     @Param('id') id: string,
   ): Promise<ApiResponsePayload<StudentsViewModel>> {
-    const deletedStudent = await this.studentsService.remove(id);
+    const deletedStudent = await this._studentsService.remove(id);
 
     if (!deletedStudent) {
       throw new HttpException(

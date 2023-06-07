@@ -26,6 +26,7 @@
     "m:revert": "npm run typeorm -- migration:revert"
   },
   "dependencies": {
+    "@golevelup/ts-jest": "^0.3.7",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.2",
     "@nestjs/core": "^9.0.0",

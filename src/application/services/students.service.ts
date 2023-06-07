@@ -5,9 +5,10 @@ import { StudentsIoCTokens } from '@infrastructure/ioc/students/students.IoC.Tok
 import { IStudentsRepository } from '@domain/students/interfaces/IStudents.repository';
 import { StudentMappingProfile } from '@application/autoMapper/students.mapping.profile';
 import { StudentFilter } from '@application/view-models/students/student.view-model';
+import { IStudentsService } from '@application/interfaces/IStudents.service';
 
 @Injectable()
-export class StudentsService {
+export class StudentsService implements IStudentsService {
   private readonly logger = new Logger(StudentsService.name);
   constructor(
     @Inject(StudentsIoCTokens.IStudentsRepository)

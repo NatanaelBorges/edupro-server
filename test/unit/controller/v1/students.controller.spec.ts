@@ -1,29 +1,22 @@
-import { BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
-import { StudentsController } from '@controller/v1/students.controller';
-import { StudentsService } from '@application/services/students.service';
+import { createMock } from '@golevelup/ts-jest';
+import { IStudentsService } from '@application/interfaces/IStudents.service';
 import { CreateStudentViewModel } from '@application/view-models/students/create-student.view-model';
-import { UpdateStudentViewModel } from '@application/view-models/students/update-student.view-model';
-import { ControllerSetup } from '@test/common/setupController';
-import { ApiResponsePayload } from '@infrastructure/helpers/common/documentation';
 import {
   StudentFilter,
   StudentsViewModel,
 } from '@application/view-models/students/student.view-model';
+import { StudentsController } from '@controller/v1/students.controller';
+import { BadRequestException, HttpException, HttpStatus } from '@nestjs/common';
+import { ApiResponsePayload } from '@infrastructure/helpers/common/documentation';
+import { UpdateStudentViewModel } from '@application/view-models/students/update-student.view-model';
 
 describe('StudentsController', () => {
-  let setup: ControllerSetup<StudentsController, StudentsService>;
   let controller: StudentsController;
-  let service: StudentsService;
+  let service: IStudentsService;
 
   beforeEach(async () => {
-    setup = new ControllerSetup<StudentsController, StudentsService>();
-    await setup.setup(StudentsController, StudentsService);
-    controller = setup.controller;
-    service = setup.service;
-  });
-
-  afterEach(async () => {
-    await setup.teardown();
+    service = createMock<IStudentsService>();
+    controller = new StudentsController(service);
   });
 
   it('should be defined', () => {
