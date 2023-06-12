@@ -28,9 +28,9 @@ export class StudentsService implements IStudentsService {
   }
 
   async findOne(id: string) {
-    return StudentMappingProfile.toEntityViewModel(
-      await this._studentsRepository.findOne(id),
-    );
+    const student = await this._studentsRepository.findOne(id);
+
+    return student ? StudentMappingProfile.toEntityViewModel(student) : null;
   }
 
   async update(id: string, updateStudentViewModel: UpdateStudentViewModel) {

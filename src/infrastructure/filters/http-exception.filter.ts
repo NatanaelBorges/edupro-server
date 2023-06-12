@@ -3,6 +3,7 @@ import {
   Catch,
   ExceptionFilter,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiResponsePayload } from '@infrastructure/helpers/common/documentation';
@@ -12,18 +13,22 @@ export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    const status =
-      exception instanceof Error
-        ? HttpStatus.INTERNAL_SERVER_ERROR
-        : exception.getStatus();
 
-    const apiResponse = new ApiResponsePayload(
-      null,
-      'Internal Server Error',
-      status,
-      exception.message || 'Internal Server Error',
-    );
+    if (exception.getStatus() === 500) {
+      Logger.log('Internal Server Error:', exception.message);
 
-    response.status(status).json(apiResponse);
+      response
+        .status(exception.getStatus())
+        .json(
+          new ApiResponsePayload(
+            null,
+            'Internal Server Error',
+            HttpStatus.INTERNAL_SERVER_ERROR,
+            exception.message || 'Internal Server Error',
+          ),
+        );
+    } else {
+      response.status(exception.getStatus()).json(exception.getResponse());
+    }
   }
 }
