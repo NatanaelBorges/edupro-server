@@ -32,14 +32,14 @@ export class ApiResponsePayload<T> {
     description: 'Indicates whether the request was successful',
     type: Date,
   })
-  dateTime: Date;
+  timestamp: Date;
 
   constructor(data: T, message: string, statusCode: number, errors?: any) {
     this.statusCode = statusCode;
     this.message = message;
     this.data = data;
     this.errors = errors;
-    this.dateTime = new Date();
+    this.timestamp = new Date();
   }
 }
 
