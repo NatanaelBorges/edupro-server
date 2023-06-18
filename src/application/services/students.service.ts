@@ -4,9 +4,11 @@ import { UpdateStudentViewModel } from '@application/view-models/students/update
 import { StudentsIoCTokens } from '@infrastructure/ioc/students/students.IoC.Tokens';
 import { IStudentsRepository } from '@domain/students/interfaces/IStudents.repository';
 import { StudentMappingProfile } from '@application/autoMapper/students.mapping.profile';
+import { StudentFilter } from '@application/view-models/students/student.view-model';
+import { IStudentsService } from '@application/interfaces/IStudents.service';
 
 @Injectable()
-export class StudentsService {
+export class StudentsService implements IStudentsService {
   private readonly logger = new Logger(StudentsService.name);
   constructor(
     @Inject(StudentsIoCTokens.IStudentsRepository)
@@ -19,16 +21,16 @@ export class StudentsService {
     );
   }
 
-  async findAll() {
+  async findAll(filter: StudentFilter) {
     return StudentMappingProfile.toEntityViewModels(
       await this._studentsRepository.findAll(),
     );
   }
 
   async findOne(id: string) {
-    return StudentMappingProfile.toEntityViewModel(
-      await this._studentsRepository.findOne(id),
-    );
+    const student = await this._studentsRepository.findOne(id);
+
+    return student ? StudentMappingProfile.toEntityViewModel(student) : null;
   }
 
   async update(id: string, updateStudentViewModel: UpdateStudentViewModel) {

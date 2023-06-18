@@ -1,4 +1,4 @@
 import { IRepository } from '@domain/core/interfaces/IRepository';
-import { Student } from '@infrastructure/data/mappings/students.map';
+import { StudentsMap } from '@infrastructure/data/mappings/students.map';
 
-export type IStudentsRepository = IRepository<Student>;
+export type IStudentsRepository = IRepository<StudentsMap>;
